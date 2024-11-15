@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  lanchonete:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app/src
+    working_dir: /app/src
+    environment:
+      - MONGODB_URL=${MONGODB_URL}
+    networks:
+      - default
+
+networks:
+  default:
+    name: lanchonete_pagamento_network
