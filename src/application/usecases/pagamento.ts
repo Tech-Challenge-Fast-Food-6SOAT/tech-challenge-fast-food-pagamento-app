@@ -11,7 +11,7 @@ export class PagamentoUseCase {
     private readonly pagamentoGateway: PagamentoGateway
   ) {}
 
-  public async gerarPagamento(pedido: Pedido): Promise<{ qrcode: string }> {
+  public async gerarPagamento(pedido: Pedido): Promise<{ qrCode: string }> {
     const output = await this.pagamentoGateway.gerarPagamento(pedido);
     await this.transacaoGateway.criar({
       pedidoId: pedido.id,
@@ -20,7 +20,7 @@ export class PagamentoUseCase {
       idTransacaoExterna: output.idTransacaoExterna,
     });
 
-    return { qrcode: output.qrCode };
+    return { qrCode: output.qrCode };
   }
 
   public async atualizarStatusPagamento(body: {

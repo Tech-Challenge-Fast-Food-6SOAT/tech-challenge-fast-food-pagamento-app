@@ -10,6 +10,6 @@ RUN apt-get update && apt-get install -y nano
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 4000
 
 CMD [ "npm", "run", "start" ]
