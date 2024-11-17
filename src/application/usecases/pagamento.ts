@@ -4,7 +4,7 @@ import type {
   TransacaoGateway,
 } from '../../adapters/gateways';
 import type { Pedido, Transacao } from '../../domain/entities';
-import { PagamentoStatus } from '../../value-objects';
+import { PagamentoStatus } from '../../domain/value-objects';
 
 export class PagamentoUseCase {
   public constructor(

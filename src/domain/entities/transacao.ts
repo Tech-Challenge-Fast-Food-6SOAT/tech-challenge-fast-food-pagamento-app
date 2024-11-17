@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import type { PagamentoStatus } from '../../value-objects';
+import type { PagamentoStatus } from '../value-objects';
 
 export class Transacao {
   public constructor(
