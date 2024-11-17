@@ -15,6 +15,7 @@
   "devDependencies": {
     "@babel/preset-env": "7.22.4",
     "@babel/preset-typescript": "7.21.5",
+    "@types/axios": "^0.9.36",
     "@types/jest": "^29.5.13",
     "@types/node": "^22.7.4",
     "@types/qrcode": "^1.5.5",
@@ -40,6 +41,7 @@
     "@fastify/swagger-ui": "^4.0.1",
     "@jest/globals": "^29.7.0",
     "@types/node": "^20.14.10",
+    "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "fastify": "^4.28.1",
     "jest-cucumber": "^4.5.0",

@@ -1,5 +1,6 @@
 import type {
   PagamentoGateway,
+  PedidoGateway,
   TransacaoGateway,
 } from '../../adapters/gateways';
 import type { Pedido, Transacao } from '../../domain/entities';
@@ -8,7 +9,8 @@ import { PagamentoStatus } from '../../value-objects';
 export class PagamentoUseCase {
   public constructor(
     private readonly transacaoGateway: TransacaoGateway,
-    private readonly pagamentoGateway: PagamentoGateway
+    private readonly pagamentoGateway: PagamentoGateway,
+    private readonly pedidoGateway: PedidoGateway
   ) {}
 
   public async gerarPagamento(pedido: Pedido): Promise<{ qrCode: string }> {
@@ -36,6 +38,10 @@ export class PagamentoUseCase {
     await this.transacaoGateway.editar({
       id: transacao.id,
       value: { pagamentoStatus: pagamentoStatus.status },
+    });
+    await this.pedidoGateway.atualizarStatusPagamento({
+      id: transacao.pedidoId,
+      pagamentoStatus: pagamentoStatus.status,
     });
   }
 

@@ -2,9 +2,14 @@
 import type { FastifyInstance } from 'fastify';
 
 import { PagamentoController } from '../adapters/controllers';
-import { PagamentoGateway, TransacaoGateway } from '../adapters/gateways';
+import {
+  PagamentoGateway,
+  PedidoGateway,
+  TransacaoGateway,
+} from '../adapters/gateways';
 import { PagamentoUseCase } from '../application/usecases';
 import { TransacaoDbConnection } from '../infra/database/mongodb/db-connections';
+import { MicrosservicoPedido } from '../infra/microsservico';
 import { PlataformaPagamentoFake } from '../infra/pagamento/plataformaPagamentoFake';
 
 const apiRoutes = async (app: FastifyInstance): Promise<void> => {
@@ -12,9 +17,12 @@ const apiRoutes = async (app: FastifyInstance): Promise<void> => {
   const transacaoGateway = new TransacaoGateway(transacaoDbConnection);
   const plataformaPagamentoFake = new PlataformaPagamentoFake();
   const pagamentoGateway = new PagamentoGateway(plataformaPagamentoFake);
+  const microsservicoPedido = new MicrosservicoPedido();
+  const pedidoGateway = new PedidoGateway(microsservicoPedido);
   const pagamentoUseCase = new PagamentoUseCase(
     transacaoGateway,
-    pagamentoGateway
+    pagamentoGateway,
+    pedidoGateway
   );
   const pagamentoController = new PagamentoController(pagamentoUseCase);
 
@@ -25,7 +33,7 @@ const apiRoutes = async (app: FastifyInstance): Promise<void> => {
     return reply.status(response.statusCode).send(response.data);
   });
 
-  app.post('/pagamento', async (request, reply) => {
+  app.post('/pagamento/gerar', async (request, reply) => {
     const response = await pagamentoController.gerarPagamento(request);
     return reply.status(response.statusCode).send(response.data);
   });
