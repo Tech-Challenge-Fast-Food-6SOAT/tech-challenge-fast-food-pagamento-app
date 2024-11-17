@@ -12,6 +12,7 @@ import { PagamentoUseCase } from '../application/usecases';
 import { TransacaoDbConnection } from '../infra/database/mongodb/db-connections';
 import { MicrosservicoPedido } from '../infra/microsservico';
 import { PlataformaPagamentoFake } from '../infra/pagamento/plataformaPagamentoFake';
+import type { HttpRequest } from '../interfaces/http';
 
 const apiRoutes = async (app: FastifyInstance): Promise<void> => {
   const transacaoDbConnection = new TransacaoDbConnection();
@@ -30,19 +31,21 @@ const apiRoutes = async (app: FastifyInstance): Promise<void> => {
 
   app.get('/pagamento/transacao/:pedidoId', async (request, reply) => {
     const response = await pagamentoController.buscarTransacaoPorPedidoId(
-      request
+      request as HttpRequest
     );
     return reply.status(response.statusCode).send(response.data);
   });
 
   app.post('/pagamento/gerar', async (request, reply) => {
-    const response = await pagamentoController.gerarPagamento(request);
+    const response = await pagamentoController.gerarPagamento(
+      request as HttpRequest
+    );
     return reply.status(response.statusCode).send(response.data);
   });
 
   app.post('/pagamento/webhook', async (request, reply) => {
     const response = await pagamentoController.atualizarStatusPagamento(
-      request
+      request as HttpRequest
     );
     return reply.status(response.statusCode).send(response.data);
   });

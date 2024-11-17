@@ -24,10 +24,10 @@ export class PagamentoController {
         },
         statusCode: 200,
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
       return {
         data: {
-          err: err?.message,
+          err: err instanceof Error ? err.message : 'Unknown error',
         },
         statusCode: 500,
       };
@@ -43,10 +43,10 @@ export class PagamentoController {
         data,
         statusCode: 201,
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
       return {
         data: {
-          err: err?.message,
+          err: err instanceof Error ? err.message : 'Unknown error',
         },
         statusCode: 500,
       };
@@ -65,10 +65,10 @@ export class PagamentoController {
         },
         statusCode: 201,
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
       return {
         data: {
-          err: err?.message,
+          err: err instanceof Error ? err.message : 'Unknown error',
         },
         statusCode: 500,
       };
