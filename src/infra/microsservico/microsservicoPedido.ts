@@ -1,9 +1,12 @@
 import axios from 'axios';
 
+import type { ISecretsGateway } from '../../interfaces/gateways';
 import type { IMicrosservicoPedido } from '../../interfaces/microsservico';
 import { Logger } from '../logs/logger';
 
 export class MicrosservicoPedido implements IMicrosservicoPedido {
+  public constructor(private readonly secretsGateway: ISecretsGateway) {}
+
   public async atualizarStatusPagamento({
     id,
     pagamentoStatus,
@@ -11,9 +14,10 @@ export class MicrosservicoPedido implements IMicrosservicoPedido {
     id: string;
     pagamentoStatus: string;
   }): Promise<{ message: string }> {
+    const baseUrl = await this.secretsGateway.getSecretValue('LANCHONETE_API');
     const data = await axios
       .patch<{ message: string }>(
-        `http://localhost:3000/pedidos/pedido/${id}/status-pagamento`,
+        `${baseUrl}/pedidos/pedido/${id}/status-pagamento`,
         {
           pagamentoStatus,
         }

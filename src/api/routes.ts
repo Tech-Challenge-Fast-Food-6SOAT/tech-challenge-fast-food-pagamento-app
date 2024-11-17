@@ -5,6 +5,7 @@ import { PagamentoController } from '../adapters/controllers';
 import {
   PagamentoGateway,
   PedidoGateway,
+  SecretsGateway,
   TransacaoGateway,
 } from '../adapters/gateways';
 import { PagamentoUseCase } from '../application/usecases';
@@ -17,7 +18,8 @@ const apiRoutes = async (app: FastifyInstance): Promise<void> => {
   const transacaoGateway = new TransacaoGateway(transacaoDbConnection);
   const plataformaPagamentoFake = new PlataformaPagamentoFake();
   const pagamentoGateway = new PagamentoGateway(plataformaPagamentoFake);
-  const microsservicoPedido = new MicrosservicoPedido();
+  const secretsGateway = new SecretsGateway();
+  const microsservicoPedido = new MicrosservicoPedido(secretsGateway);
   const pedidoGateway = new PedidoGateway(microsservicoPedido);
   const pagamentoUseCase = new PagamentoUseCase(
     transacaoGateway,

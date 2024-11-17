@@ -37,6 +37,7 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.693.0",
     "@fastify/swagger": "^8.15.0",
     "@fastify/swagger-ui": "^4.0.1",
     "@jest/globals": "^29.7.0",
