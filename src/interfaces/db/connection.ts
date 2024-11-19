@@ -1,10 +1,8 @@
 export interface DbConnection {
-  buscar: <T = unknown>(params: object) => Promise<T[]>;
-  buscarUm: <T = unknown>(params: object) => Promise<T | null>;
-  criar: <T = unknown>(params: object) => Promise<T>;
-  excluir: (id: string) => Promise<void>;
+  buscarUm: <T = unknown>(params: Record<string, unknown>) => Promise<T | null>;
+  criar: <T = unknown>(params: Record<string, unknown>) => Promise<T>;
   editar: <T = unknown>(params: {
     id: string;
-    value: object;
+    value: Record<string, unknown>;
   }) => Promise<T | null>;
 }

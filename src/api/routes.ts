@@ -9,13 +9,17 @@ import {
   TransacaoGateway,
 } from '../adapters/gateways';
 import { PagamentoUseCase } from '../application/usecases';
-import { TransacaoDbConnection } from '../infra/database/mongodb/db-connections';
+import {
+  PgPromiseConnectionAdapter,
+  TransacaoDbConnection,
+} from '../infra/database/postgreSQL';
 import { MicrosservicoPedido } from '../infra/microsservico';
 import { PlataformaPagamentoFake } from '../infra/pagamento/plataformaPagamentoFake';
 import type { HttpRequest } from '../interfaces/http';
 
 const apiRoutes = async (app: FastifyInstance): Promise<void> => {
-  const transacaoDbConnection = new TransacaoDbConnection();
+  const connection = await PgPromiseConnectionAdapter.getInstance();
+  const transacaoDbConnection = new TransacaoDbConnection(connection);
   const transacaoGateway = new TransacaoGateway(transacaoDbConnection);
   const plataformaPagamentoFake = new PlataformaPagamentoFake();
   const pagamentoGateway = new PagamentoGateway(plataformaPagamentoFake);

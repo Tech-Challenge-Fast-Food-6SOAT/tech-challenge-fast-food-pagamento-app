@@ -37,7 +37,7 @@ export class PagamentoUseCase {
     if (!transacao) throw new Error('Transação não encontrada');
     await this.transacaoGateway.editar({
       id: transacao.id,
-      value: { pagamentoStatus: pagamentoStatus.status },
+      value: { pagamento_status: pagamentoStatus.status },
     });
     await this.pedidoGateway.atualizarStatusPagamento({
       id: transacao.pedidoId,
