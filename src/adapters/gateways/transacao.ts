@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { Transacao } from '../../domain/entities';
-import type { PagamentoStatus } from '../../domain/value-objects';
+import type { TransacaoDB } from '../../interfaces/db';
 import type { DbConnection } from '../../interfaces/db/connection';
 import type { ITransacaoGateway } from '../../interfaces/gateways';
 
@@ -10,10 +10,7 @@ export class TransacaoGateway implements ITransacaoGateway {
   public async criar(
     transacao: Omit<Transacao, 'data' | 'id'>
   ): Promise<Transacao> {
-    const transacaoCriada = await this.dbConnection.criar<{
-      id: string;
-      created_at: Date;
-    }>({
+    const transacaoCriada = await this.dbConnection.criar<TransacaoDB>({
       pedido_id: transacao.pedidoId,
       valor: transacao.valor,
       pagamento_status: transacao.pagamentoStatus.status,
@@ -33,14 +30,9 @@ export class TransacaoGateway implements ITransacaoGateway {
     id: string;
     value: Record<string, unknown>;
   }): Promise<Transacao | null> {
-    const transacaoAtualizada = await this.dbConnection.editar<{
-      id: string;
-      pedido_id: string;
-      valor: number;
-      pagamento_status: PagamentoStatus;
-      created_at: Date;
-      id_transacao_externa: string;
-    }>(params);
+    const transacaoAtualizada = await this.dbConnection.editar<TransacaoDB>(
+      params
+    );
     if (!transacaoAtualizada) return null;
     return new Transacao(
       transacaoAtualizada.id,
@@ -55,14 +47,7 @@ export class TransacaoGateway implements ITransacaoGateway {
   public async buscarTransacaoPorPedidoId(
     pedidoId: string
   ): Promise<Transacao | null> {
-    const transacao = await this.dbConnection.buscarUm<{
-      id: string;
-      pedido_id: string;
-      valor: number;
-      pagamento_status: PagamentoStatus;
-      created_at: Date;
-      id_transacao_externa: string;
-    }>({
+    const transacao = await this.dbConnection.buscarUm<TransacaoDB>({
       pedido_id: pedidoId,
     });
     if (!transacao) return null;
@@ -79,14 +64,7 @@ export class TransacaoGateway implements ITransacaoGateway {
   public async buscarPorIdTransacaoExterna(
     idTransacaoExterna: string
   ): Promise<Transacao | null> {
-    const transacao = await this.dbConnection.buscarUm<{
-      id: string;
-      pedido_id: string;
-      valor: number;
-      pagamento_status: PagamentoStatus;
-      created_at: Date;
-      id_transacao_externa: string;
-    }>({
+    const transacao = await this.dbConnection.buscarUm<TransacaoDB>({
       id_transacao_externa: idTransacaoExterna,
     });
     if (!transacao) return null;
