@@ -9,7 +9,7 @@ describe('PagamentoController', () => {
     gerarPagamento: jest.fn(),
     atualizarStatusPagamento: jest.fn(),
   } as unknown as PagamentoUseCase;
-  const pedidoController = new PagamentoController(pagamentoUseCase);
+  const pagamentoController = new PagamentoController(pagamentoUseCase);
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -31,7 +31,7 @@ describe('PagamentoController', () => {
 
       const request = { params: { pedidoId: 'IDPDO-123' } } as HttpRequest;
       const response: HttpResponse =
-        await pedidoController.buscarTransacaoPorPedidoId(request);
+        await pagamentoController.buscarTransacaoPorPedidoId(request);
 
       expect(response.statusCode).toBe(200);
       expect(response.data).toEqual(transacao);
@@ -43,7 +43,7 @@ describe('PagamentoController', () => {
       ).mockRejectedValue(new Error('Erro interno'));
       const request = { params: { pedidoId: 'IDPDO-123' } } as HttpRequest;
       const response: HttpResponse =
-        await pedidoController.buscarTransacaoPorPedidoId(request);
+        await pagamentoController.buscarTransacaoPorPedidoId(request);
 
       expect(response.statusCode).toBe(500);
       expect(response.data).toEqual({ err: 'Erro interno' });
@@ -55,7 +55,7 @@ describe('PagamentoController', () => {
       ).mockRejectedValue('Erro interno');
       const request = { params: { pedidoId: 'IDPDO-123' } } as HttpRequest;
       const response: HttpResponse =
-        await pedidoController.buscarTransacaoPorPedidoId(request);
+        await pagamentoController.buscarTransacaoPorPedidoId(request);
 
       expect(response.statusCode).toBe(500);
       expect(response.data).toEqual({ err: 'Unknown error' });
@@ -71,7 +71,7 @@ describe('PagamentoController', () => {
       });
 
       const request = { body: { pedido } } as unknown as HttpRequest;
-      const response: HttpResponse = await pedidoController.gerarPagamento(
+      const response: HttpResponse = await pagamentoController.gerarPagamento(
         request
       );
 
@@ -84,7 +84,7 @@ describe('PagamentoController', () => {
         new Error('Erro interno')
       );
       const request = { body: { pedido } } as unknown as HttpRequest;
-      const response: HttpResponse = await pedidoController.gerarPagamento(
+      const response: HttpResponse = await pagamentoController.gerarPagamento(
         request
       );
 
@@ -97,7 +97,7 @@ describe('PagamentoController', () => {
         'Erro interno'
       );
       const request = { body: { pedido } } as unknown as HttpRequest;
-      const response: HttpResponse = await pedidoController.gerarPagamento(
+      const response: HttpResponse = await pagamentoController.gerarPagamento(
         request
       );
 
@@ -116,7 +116,7 @@ describe('PagamentoController', () => {
         body: { id: 'ID-123 ', status: 'paid' },
       } as unknown as HttpRequest;
       const response: HttpResponse =
-        await pedidoController.atualizarStatusPagamento(request);
+        await pagamentoController.atualizarStatusPagamento(request);
 
       expect(response.statusCode).toBe(201);
       expect(response.data).toEqual({
@@ -133,7 +133,7 @@ describe('PagamentoController', () => {
         params: { id: '123' },
       } as unknown as HttpRequest;
       const response: HttpResponse =
-        await pedidoController.atualizarStatusPagamento(request);
+        await pagamentoController.atualizarStatusPagamento(request);
 
       expect(response.statusCode).toBe(500);
       expect(response.data).toEqual({ err: 'Erro interno' });
@@ -148,7 +148,7 @@ describe('PagamentoController', () => {
         params: { id: '123' },
       } as unknown as HttpRequest;
       const response: HttpResponse =
-        await pedidoController.atualizarStatusPagamento(request);
+        await pagamentoController.atualizarStatusPagamento(request);
 
       expect(response.statusCode).toBe(500);
       expect(response.data).toEqual({ err: 'Unknown error' });
