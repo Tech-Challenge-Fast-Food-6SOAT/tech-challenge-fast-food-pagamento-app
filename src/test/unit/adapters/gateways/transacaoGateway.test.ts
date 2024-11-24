@@ -96,7 +96,7 @@ describe('TransacaoGateway', () => {
     const pedidoId = 'IDPDO-123';
 
     it('should return a transacao', async () => {
-      const transacaoAtualizada = {
+      const transacao = {
         id: 'ID-123',
         pedido_id: 'IDPDO-123',
         valor: 10,
@@ -105,9 +105,7 @@ describe('TransacaoGateway', () => {
         created_at: new Date(),
       } as unknown as TransacaoDB;
 
-      (dbConnection.buscarUm as jest.Mock).mockResolvedValue(
-        transacaoAtualizada
-      );
+      (dbConnection.buscarUm as jest.Mock).mockResolvedValue(transacao);
 
       const result = await transacaoGateway.buscarTransacaoPorPedidoId(
         pedidoId
@@ -115,12 +113,12 @@ describe('TransacaoGateway', () => {
 
       expect(result).toEqual(
         new Transacao(
-          transacaoAtualizada.id,
-          transacaoAtualizada.pedido_id,
-          transacaoAtualizada.valor,
-          transacaoAtualizada.pagamento_status,
-          transacaoAtualizada.created_at,
-          transacaoAtualizada.id_transacao_externa
+          transacao.id,
+          transacao.pedido_id,
+          transacao.valor,
+          transacao.pagamento_status,
+          transacao.created_at,
+          transacao.id_transacao_externa
         )
       );
       expect(dbConnection.buscarUm).toHaveBeenCalledWith({
