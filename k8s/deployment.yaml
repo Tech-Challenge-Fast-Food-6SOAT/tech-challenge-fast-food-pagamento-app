@@ -25,8 +25,8 @@ spec:
               memory: 256Mi
               cpu: 100m
           env:
-            - name: MONGODB_URL
+            - name: POSTGRESQL_CONNECTION_STRING_PAGAMENTO
               valueFrom:
                 secretKeyRef:
                   name: pagamento-app-secrets
-                  key: MONGODB_URL
+                  key: POSTGRESQL_CONNECTION_STRING_PAGAMENTO

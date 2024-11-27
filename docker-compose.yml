@@ -9,7 +9,7 @@ services:
       - .:/app/src
     working_dir: /app/src
     environment:
-      - MONGODB_URL=${MONGODB_URL}
+      - POSTGRESQL_CONNECTION_STRING_PAGAMENTO=${POSTGRESQL_CONNECTION_STRING_PAGAMENTO}
     networks:
       - default
 

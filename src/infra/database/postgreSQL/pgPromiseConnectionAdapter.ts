@@ -34,7 +34,7 @@ export class PgPromiseConnectionAdapter implements Connection {
     const pgp = pgPromise(initOptions);
 
     this.pgp = pgp({
-      connectionString: process.env.POSTGRESQL_CONNECTION_STRING,
+      connectionString: process.env.POSTGRESQL_CONNECTION_STRING_PAGAMENTO,
       ssl: {
         rejectUnauthorized: false,
       },
