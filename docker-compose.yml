@@ -10,6 +10,9 @@ services:
     working_dir: /app/src
     environment:
       - POSTGRESQL_CONNECTION_STRING_PAGAMENTO=${POSTGRESQL_CONNECTION_STRING_PAGAMENTO}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
     networks:
       - default
 

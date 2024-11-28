@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: pagamento-app
-          image: danilocassola/fiap-lanchonete-pagamento:v1.1
+          image: danilocassola/fiap-lanchonete-pagamento:v1.4
           ports:
             - containerPort: 4000
           resources:
@@ -30,3 +30,18 @@ spec:
                 secretKeyRef:
                   name: pagamento-app-secrets
                   key: POSTGRESQL_CONNECTION_STRING_PAGAMENTO
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: pagamento-app-secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pagamento-app-secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: pagamento-app-secrets
+                  key: AWS_SESSION_TOKEN
