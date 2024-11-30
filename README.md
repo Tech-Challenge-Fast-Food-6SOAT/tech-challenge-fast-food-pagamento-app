@@ -31,3 +31,7 @@ docker compose down
 ## Evidência de cobertura de testes
 
 ![Evidência de cobertura de testes](pagamento_coverage.jpg)
+
+## Comunicação entre os microsserviços
+
+![Comunicação entre os microsserviços](comunicacao_microsservicos.jpg)
