@@ -4,6 +4,9 @@ export const produto: Config.InitialProjectOptions = {
   displayName: 'Pagamento',
   testEnvironment: 'node',
   testMatch: ['<rootDir>/src/**/*.test.ts', '<rootDir>/src/**/*.steps.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
 };
 
 const config: Config.InitialOptions = {

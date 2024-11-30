@@ -11,7 +11,7 @@ export const App = {
     await app.register(routes);
     await app.ready();
     await app.listen({
-      port: 3000,
+      port: 4000,
       host: '0.0.0.0',
     });
     Logger.info('API IS RUNNING');

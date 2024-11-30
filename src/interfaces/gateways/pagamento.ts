@@ -1,5 +1,5 @@
 import type { Pedido } from '../../domain/entities';
-import type { PagamentoStatus } from '../../value-objects';
+import type { PagamentoStatus } from '../../domain/value-objects';
 
 export interface IPagamentoGateway {
   gerarPagamento: (pedido: Pedido) => Promise<object>;

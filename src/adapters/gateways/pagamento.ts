@@ -1,8 +1,8 @@
 import type { Pedido } from '../../domain/entities';
+import type { PagamentoStatusEnum } from '../../domain/value-objects';
+import { PagamentoStatus } from '../../domain/value-objects';
 import type { IPagamentoGateway } from '../../interfaces/gateways';
 import type { IPlataformaPagamento } from '../../interfaces/plataformaPagamento';
-import type { PagamentoStatusEnum } from '../../value-objects';
-import { PagamentoStatus } from '../../value-objects';
 
 export class PagamentoGateway implements IPagamentoGateway {
   public constructor(

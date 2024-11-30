@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pagamento-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pagamento-app
+  template:
+    metadata:
+      labels:
+        app: pagamento-app
+    spec:
+      containers:
+        - name: pagamento-app
+          image: danilocassola/fiap-lanchonete-pagamento:v1.4
+          ports:
+            - containerPort: 4000
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 100m
+            limits:
+              memory: 256Mi
+              cpu: 100m
+          env:
+            - name: POSTGRESQL_CONNECTION_STRING_PAGAMENTO
+              valueFrom:
+                secretKeyRef:
+                  name: pagamento-app-secrets
+                  key: POSTGRESQL_CONNECTION_STRING_PAGAMENTO
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: pagamento-app-secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pagamento-app-secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: pagamento-app-secrets
+                  key: AWS_SESSION_TOKEN

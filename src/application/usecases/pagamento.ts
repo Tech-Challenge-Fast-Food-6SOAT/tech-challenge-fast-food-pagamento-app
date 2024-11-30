@@ -1,17 +1,19 @@
 import type {
   PagamentoGateway,
+  PedidoGateway,
   TransacaoGateway,
 } from '../../adapters/gateways';
 import type { Pedido, Transacao } from '../../domain/entities';
-import { PagamentoStatus } from '../../value-objects';
+import { PagamentoStatus } from '../../domain/value-objects';
 
 export class PagamentoUseCase {
   public constructor(
     private readonly transacaoGateway: TransacaoGateway,
-    private readonly pagamentoGateway: PagamentoGateway
+    private readonly pagamentoGateway: PagamentoGateway,
+    private readonly pedidoGateway: PedidoGateway
   ) {}
 
-  public async gerarPagamento(pedido: Pedido): Promise<{ qrcode: string }> {
+  public async gerarPagamento(pedido: Pedido): Promise<{ qrCode: string }> {
     const output = await this.pagamentoGateway.gerarPagamento(pedido);
     await this.transacaoGateway.criar({
       pedidoId: pedido.id,
@@ -20,7 +22,7 @@ export class PagamentoUseCase {
       idTransacaoExterna: output.idTransacaoExterna,
     });
 
-    return { qrcode: output.qrCode };
+    return { qrCode: output.qrCode };
   }
 
   public async atualizarStatusPagamento(body: {
@@ -35,7 +37,11 @@ export class PagamentoUseCase {
     if (!transacao) throw new Error('Transação não encontrada');
     await this.transacaoGateway.editar({
       id: transacao.id,
-      value: { pagamentoStatus: pagamentoStatus.status },
+      value: { pagamento_status: pagamentoStatus.status },
+    });
+    await this.pedidoGateway.atualizarStatusPagamento({
+      id: transacao.pedidoId,
+      pagamentoStatus: pagamentoStatus.status,
     });
   }
 

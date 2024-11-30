@@ -4,12 +4,15 @@ services:
   lanchonete:
     build: .
     ports:
-      - "3000:3000"
+      - "4000:4000"
     volumes:
       - .:/app/src
     working_dir: /app/src
     environment:
-      - MONGODB_URL=${MONGODB_URL}
+      - POSTGRESQL_CONNECTION_STRING_PAGAMENTO=${POSTGRESQL_CONNECTION_STRING_PAGAMENTO}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
     networks:
       - default
 
