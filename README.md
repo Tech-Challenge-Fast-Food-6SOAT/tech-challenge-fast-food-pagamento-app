@@ -27,3 +27,7 @@ docker compose up
 ```bash
 docker compose down
 ```
+
+## Evidência de cobertura de testes
+
+![Evidência de cobertura de testes](pagamento_coverage.jpg)
