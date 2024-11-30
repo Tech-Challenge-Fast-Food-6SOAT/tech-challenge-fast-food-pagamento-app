@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/init-declarations */
 /* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/init-declarations */
 import { PagamentoGateway } from '@/adapters/gateways';
 import type { PagamentoStatusEnum } from '@/domain/value-objects';
 import { PagamentoStatus } from '@/domain/value-objects';
